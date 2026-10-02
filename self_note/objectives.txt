@@ -1,0 +1,47 @@
+SPRING BOOT BACKEND LEARNING OBJECTIVES (HK MTR API PROJECT)
+
+1. External API Integration (RestClient)
+- Configure a Spring RestClient Bean in the config package.
+- Send HTTP GET requests to the HK MTR API endpoint: https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php
+- Pass query parameters dynamically (line code, station code, language preference).
+- Parse nested external JSON responses into strongly-typed Java Data Transfer Objects (DTOs).
+
+2. Data Transfer Objects & Serialization (DTO Layer)
+- Map raw MTR JSON structures (sys_time, curr_time, UP/DOWN arrays, plat, time) into clean internal DTOs.
+- Use Lombok annotations (@Data, @Getter, @Setter, @Builder) to eliminate Java boilerplate code.
+- Transform raw timestamp strings into calculated arrival minute counters (e.g., "Arriving in 3 mins").
+
+3. Business Logic & Clean Architecture (Service Layer)
+- Keep controllers thin by encapsulating core logic inside service classes.
+- Implement methods to query station departure schedules by line and station code.
+- Implement logic to check line status (normal operations vs. delays or service suspensions).
+- Consolidate dual-direction train schedules (UP and DOWN tracks) into unified response payloads.
+
+4. REST Endpoint Design (Controller Layer)
+- Expose RESTful JSON endpoints using @RestController and @RequestMapping.
+- Use @GetMapping with @RequestParam for query filters (e.g., line=TKL&sta=TKO).
+- Use @PathVariable for dynamic station lookup routes.
+- Return structured responses using ResponseEntity<T> with explicit HTTP status codes (200 OK, 400 Bad Request).
+
+5. Global Error & Exception Handling (Exception Layer)
+- Build a centralized exception handler class annotated with @RestControllerAdvice.
+- Catch HTTP client exceptions and handle MTR API connection timeouts gracefully.
+- Throw custom runtime exceptions (e.g., InvalidStationException, MtrApiUnavailableException).
+- Return standard JSON error response structures containing timestamps, status codes, error types, and actionable messages.
+
+6. Testing & API Verification
+- Validate all backend endpoints using Postman or cURL.
+- Verify status codes and edge cases (invalid line/station combinations, offline API handling).
+
+---
+
+TARGET ENDPOINTS TO IMPLEMENT:
+
+1. GET /api/v1/mtr/schedules?line={line}&sta={station}
+- Purpose: Fetches cleaned upcoming train arrival times for a specified MTR station and line.
+
+2. GET /api/v1/mtr/lines/{line}/status
+- Purpose: Inspects system health and delay indicators for a specific line.
+
+3. GET /api/v1/mtr/stations/{station}/quick-check
+- Purpose: Aggregates next-train schedules for a station across applicable line connections.
