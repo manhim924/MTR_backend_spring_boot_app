@@ -1,6 +1,7 @@
+// src/main/java/my_app/mtr_backend_app/controller/mtrController.java
 package my_app.mtr_backend_app.controller;
 
-import my_app.mtr_backend_app.service.MtrService;
+import my_app.mtr_backend_app.service.mtrService;
 import my_app.mtr_backend_app.DTO.mtrAPIResponseDTO;
 
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/mtr")
 public class mtrController{
 
-  private final MtrService mtrService;
+  private final mtrService mtrService;
 
-  public mtrController(MtrService mtrService){
+  public mtrController(mtrService mtrService){
     this.mtrService = mtrService;
   }
 

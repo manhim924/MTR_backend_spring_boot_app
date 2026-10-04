@@ -1,3 +1,24 @@
+#/src/main/resource/application.ymal
 spring:
   application:
     name: MTR_backend_App
+
+  mtr-Line:
+    - label : "Airport Express"
+      value : "AEL"
+    - label : "Tung Chung Line"
+      value : "TCL"
+    - label : "Tune Ma Line"
+      value : "TML"
+    - label : "Tseung Kwan O Line"
+      value : "TKL"
+    - label : "East Rail Line"
+      value: "EAL"
+    - label: "South Island Line"
+      value: "SIL"
+    - label: "Tsuen Wan Line"
+      value: "TWL"
+    - label : "Island Line"
+      value : "ISL"
+    - label : "Kwun Tong Line"
+      value : "KTL"

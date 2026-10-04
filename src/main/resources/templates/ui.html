@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Backend Test Runner</title>
+  <!-- Keep existing CSS styling here -->
+</head>
+<body>
+
+<div class="container">
+  <h2>Backend Test Runner</h2>
+
+  <form id="testForm">
+    <div class="form-group">
+      <label for="scenarioSelect">Select Test Scenario:</label>
+      <select id="scenarioSelect" name="selectedCode" required>
+        <option value="" disabled selected>-- Choose an option --</option>
+        <option th:each="option : ${Line}"
+                th:value="${option.value}"
+                th:text="${option.label}">
+        </option>
+      </select>
+    </div>
+
+    <!-- type="button" prevents traditional form submission -->
+    <button type="button" onclick="executeTest()">Run Test</button>
+  </form>
+
+  <!-- Message box populated dynamically -->
+  <div id="resultMessage" class="result-message" style="display: none;"></div>
+</div>
+
+<script>
+  async function executeTest() {
+    const selectedCode = document.getElementById("scenarioSelect").value;
+    if (!selectedCode) return;
+
+    const formData = new FormData();
+    formData.append("selectedCode", selectedCode);
+
+    // Send request to /run-test on the same controller
+    const response = await fetch('/ui_test', {
+      method: 'POST',
+      body: formData
+    });
+
+    const resultText = await response.text();
+
+    // Display result on screen seamlessly
+    const resultDiv = document.getElementById("resultMessage");
+    resultDiv.innerText = resultText;
+    resultDiv.style.display = "block";
+  }
+</script>
+
+</body>
+</html>

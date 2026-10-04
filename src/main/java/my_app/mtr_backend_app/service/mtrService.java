@@ -1,3 +1,4 @@
+// src/main/java/my_app/mtr_backend_app/service/MtrService.java
 package my_app.mtr_backend_app.service;
 
 import my_app.mtr_backend_app.DTO.mtrAPIResponseDTO;
@@ -5,11 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 @Service
-public class MtrService{
+public class mtrService {
 
   private final RestClient mtrRestClient;
 
-  public MtrService(RestClient mtrRestClient){
+  public mtrService(RestClient mtrRestClient){
     this.mtrRestClient = mtrRestClient;
   }
 

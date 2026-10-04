@@ -1,3 +1,4 @@
+// src/main/java/my_app/mtr_backend_app/config/MtrClientConfig.java
 package my_app.mtr_backend_app.config;
 
 import org.springframework.context.annotation.Bean;
@@ -5,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 
 @Configuration
-public class MtrClientConfig {
+public class mtrClientConfig {
 
   @Bean
   public RestClient mtrRestClient(){
